@@ -1,10 +1,37 @@
-# API de Agenda iLeva
+# 🚀 API de Agenda iLeva
 
 Bem-vindo à API `agenda_ileva`. Esta é uma API RESTful para gerenciar contatos e seus números de telefone, construída com PHP, POO e a arquitetura MC (Model-Controller).
 
 Toda a comunicação com a API é feita através de **JSON**.
 
-## Endpoints de Contatos
+## Banco de Dados
+
+A API utiliza um banco de dados MySQL chamado `agenda_ileva`. A estrutura é composta por duas tabelas:
+
+```sql
+Tabela de Contatos
+CREATE TABLE contatos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Tabela de Telefones
+CREATE TABLE telefones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_contato INT NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    tipo VARCHAR(50) DEFAULT 'celular',  -- Ex: 'celular', 'casa', 'trabalho'
+    FOREIGN KEY (id_contato) 
+        REFERENCES contatos(id) 
+        ON DELETE CASCADE -- << IMPORTANTE!
+);
+```
+
+---
+
+## 👤 Endpoints de Contatos
 
 Recurso principal para gerenciar os dados básicos dos contatos.
 
@@ -105,7 +132,7 @@ Recurso principal para gerenciar os dados básicos dos contatos.
 
 ---
 
-## 📞 Endpoints de Telefones
+## Endpoints de Telefones
 
 Recurso para gerenciar os números de telefone associados a um contato.
 
@@ -201,16 +228,3 @@ Recurso para gerenciar os números de telefone associados a um contato.
       "message": "Telefone excluído."
     }
     ```
-
----
-
-## ⚠️ Códigos de Erro e CORS
-
-### Códigos de Erro Comuns
-
-| Código | Status | Descrição |
-| :--- | :--- | :--- |
-| **400 Bad Request** | Requisição Inválida | Ocorre quando faltam dados obrigatórios no JSON (ex: enviar um telefone sem `id_contato`). |
-| **404 Not Found** | Não Encontrado | O endpoint não existe (ex: `/contatos`) ou o recurso (ex: `/contato/999`) não foi encontrado. |
-| **405 Method Not Allowed** | Método Não Permitido | Você tentou usar um método HTTP incorreto (ex: `POST` em `/contato/1`). |
-
