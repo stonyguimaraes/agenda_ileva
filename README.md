@@ -22,10 +22,10 @@ CREATE TABLE telefones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_contato INT NOT NULL,
     numero VARCHAR(20) NOT NULL,
-    tipo VARCHAR(50) DEFAULT 'celular',  -- Ex: 'celular', 'casa', 'trabalho'
+    tipo VARCHAR(50) DEFAULT 'celular', 
     FOREIGN KEY (id_contato) 
         REFERENCES contatos(id) 
-        ON DELETE CASCADE -- << IMPORTANTE!
+        ON DELETE CASCADE 
 );
 ```
 
