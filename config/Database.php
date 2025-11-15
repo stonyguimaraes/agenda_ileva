@@ -9,7 +9,7 @@ class Database
         $host = 'localhost';
         $db   = 'agenda_ileva_ge';
         $user = 'root';
-        $pass = ''; // sua senha
+        $pass = '';
         $charset = 'utf8mb4';
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -26,7 +26,6 @@ class Database
         }
     }
 
-    // O método Singleton para obter a conexão
     public static function getInstance()
     {
         if (self::$instance == null) {

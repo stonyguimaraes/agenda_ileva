@@ -24,7 +24,6 @@ class Telefone
         return $stmt->fetch();
     }
 
-    // Novo método para buscar telefones de um contato
     public function findByContatoId($id_contato)
     {
         $stmt = $this->pdo->prepare("SELECT id, numero, tipo FROM telefones WHERE id_contato = ?");

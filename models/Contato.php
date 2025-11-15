@@ -38,7 +38,6 @@ class Contato
 
     public function delete($id)
     {
-        // O ON DELETE CASCADE cuida dos telefones
         $sql = "DELETE FROM contatos WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);

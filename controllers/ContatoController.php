@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../models/Contato.php';
-require_once __DIR__ . '/../models/Telefone.php'; // Precisa do TelefoneModel
+require_once __DIR__ . '/../models/Telefone.php';
 
 class ContatoController extends BaseController
 {
@@ -11,7 +11,7 @@ class ContatoController extends BaseController
     public function __construct()
     {
         $this->contatoModel = new Contato();
-        $this->telefoneModel = new Telefone(); // Instanciamos os dois models
+        $this->telefoneModel = new Telefone();
     }
 
     public function handleRequest($method, $id)
