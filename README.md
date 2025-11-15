@@ -1,4 +1,4 @@
-# 🚀 API de Agenda iLeva
+# API de Agenda iLeva
 
 Bem-vindo à API `agenda_ileva`. Esta é uma API RESTful para gerenciar contatos e seus números de telefone, construída com PHP, POO e a arquitetura MC (Model-Controller).
 
