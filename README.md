@@ -31,7 +31,7 @@ CREATE TABLE telefones (
 
 ---
 
-## 👤 Endpoints de Contatos
+## Endpoints de Contatos
 
 Recurso principal para gerenciar os dados básicos dos contatos.
 
