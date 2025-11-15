@@ -52,7 +52,6 @@ class ContatoController extends BaseController
             $this->sendResponse(['message' => 'Contato não encontrado'], 404);
             return;
         }
-        // Anexa os telefones ao contato
         $contato['telefones'] = $this->telefoneModel->findByContatoId($id);
         $this->sendResponse($contato);
     }
