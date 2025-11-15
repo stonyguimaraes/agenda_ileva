@@ -2,12 +2,18 @@
 
 require_once __DIR__ . '/../config/Database.php';
 
+
 $route = $_GET['route'] ?? '';
 $parts = explode('/', $route);
+
 $resource = $parts[0] ?? null;
 $id = $parts[1] ?? null;
-
 $method = $_SERVER['REQUEST_METHOD'];
+
+if ($method == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 switch ($resource) {
     case 'contato':

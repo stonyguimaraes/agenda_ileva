@@ -10,8 +10,37 @@ class Contato
 
     public function findAll()
     {
-        $stmt = $this->pdo->query("SELECT id, nome, email FROM contatos");
-        return $stmt->fetchAll();
+
+        $stmt_contatos = $this->pdo->query("SELECT id, nome, email FROM contatos ORDER BY nome");
+        $contatos = $stmt_contatos->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($contatos)) {
+            return [];
+        }
+
+        $contato_ids = array_column($contatos, 'id');
+
+        $placeholders = implode(',', array_fill(0, count($contato_ids), '?'));
+
+        $sql_telefones = "SELECT id, id_contato, numero, tipo 
+                          FROM telefones 
+                          WHERE id_contato IN ($placeholders)";
+
+        $stmt_telefones = $this->pdo->prepare($sql_telefones);
+        $stmt_telefones->execute($contato_ids);
+        $all_telefones = $stmt_telefones->fetchAll(PDO::FETCH_ASSOC);
+
+        $telefones_map = [];
+        foreach ($all_telefones as $tel) {
+            // Agrupa os telefones pelo id_contato
+            $telefones_map[$tel['id_contato']][] = $tel;
+        }
+
+        foreach ($contatos as $key => $contato) {
+            $contatos[$key]['telefones'] = $telefones_map[$contato['id']] ?? [];
+        }
+
+        return $contatos;
     }
 
     public function findById($id)
